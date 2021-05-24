@@ -1,7 +1,5 @@
 ---
-layout: post
 title:  "Hello, World!"
-author: "Dillon Redding"
 ---
 
 Welcome to my blog, where I hope to share my knowledge, thoughts, experience, and ideas
