@@ -3,8 +3,6 @@ layout: post
 title:  "Hello, World!"
 ---
 
-# Hello, World!
-
 Welcome to my blog, where I hope to share my knowledge, thoughts, experience, and ideas
 around all things software development.
 
