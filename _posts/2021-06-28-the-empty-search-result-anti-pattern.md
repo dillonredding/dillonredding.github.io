@@ -1,4 +1,7 @@
-# The Empty Search Result Anti-Pattern
+---
+title: The Empty Search Result Anti-Pattern
+tags: [api, http, status codes]
+---
 
 I saw [this post on Twitter][1] the other day and thought it would make for a good first blog post since I've seen the exact same question where I used to work.
 
