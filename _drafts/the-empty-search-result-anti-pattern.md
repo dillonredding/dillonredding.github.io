@@ -44,7 +44,7 @@ That's unsurprisingly generic, but we see that whatever our payload is depends o
 
 [10]: https://www.iana.org/assignments/http-methods
 [11]: https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.1
-[12]: https://datatracker.ietf.org/doc/html/rfc7231#section-4
+[12]: https://datatracker.ietf.org/doc/html/rfc7231#section-3
 
 Let's first suppose `/users?name=spock` is our filtered collection. Since a user by that name doesn't exist, our representation should be an empty collection. There are several [media types][13] we could use to represent this. In [JSON][14], we might have something like this:
 
@@ -95,9 +95,9 @@ Note the empty array at `/collection/items` (see [JSON Pointer][16]). We get a l
 [17]: http://amundsen.com/media-types/collection/format/#arrays-queries
 [18]: http://amundsen.com/media-types/collection/format/#query-templates
 
-Or maybe we want to use something simpler like [CSV][27]:
+Or maybe we want to use something simpler like [CSV][28]:
 
-[27]: https://datatracker.ietf.org/doc/html/rfc4180
+[28]: https://datatracker.ietf.org/doc/html/rfc4180
 
 ```http
 HTTP/1.1 200 OK
@@ -107,7 +107,7 @@ Content-Length: 36
 givenName,familyName,email,telephone
 ```
 
-Even [HTML][19] has ways to represent an empty collection with an empty `ol` or `ul` element:
+Even [HTML][19] has ways to represent an empty collection, with an empty `ol` or `ul` element:
 
 [19]: https://html.spec.whatwg.org/multipage
 
@@ -155,7 +155,7 @@ Content-Length: 42
 No items found with name matching 'spock'.
 ```
 
-I could probably go on, but I think that's plenty of examples showing how we could represent our empty collection. The point is we have options. Thus a `200` seems rather promising, but let's consider the other two status codes for the sake of argument.
+There are definitely other media types we could use, but I think that's plenty of examples showing how we could represent our empty collection. The point is we have options. Thus a `200` seems rather promising, but let's consider the other two status codes for the sake of argument.
 
 Before moving on, however, let's quickly consider the case where `/users?name=spock` is a single user. Recall that the user doesn't exist, therefore the resource doesn't exist and we cannot represent it, and so `200` is inappropriate.
 
@@ -189,7 +189,7 @@ We'll ignore the latter half since that's more of a security thing, but the form
 
 In the case of `/users?name=spock` being the filtered collection, it's the same argument as the `204`. However, in the case of `404`, the definition states that "the origin server did not **find** a current representation". While we definitely have options for a representation, that doesn't mean the server is aware of or understands those options. With that, a `404` *technically* could be valid&mdash;depending on our definition of "find"&mdash;but this scenario is likely rare since a server ignorant of the representation options probably isn't worth calling.
 
-You might be asking yourself, "If `/users` is our collection and it exists, then `/users?name=spock` would exist too, right? Does the query string matter here?" Absolutely! The [RFC 3986][5] defines the [query][26] component as "non-hierarchical data that, along with data in the path component ([Section 3.3][27]), **serves to identify a resource**... [emphasis mine]."
+You might be asking yourself, "If `/users` is our collection and it exists, then `/users?name=spock` would exist too, right? Does the query string matter here?" Absolutely! The [RFC 3986][6] defines the [query][26] component as "non-hierarchical data that, along with data in the path component ([Section 3.3][27]), **serves to identify a resource**... [emphasis mine]."
 
 [26]: https://datatracker.ietf.org/doc/html/rfc3986#section-3.4
 [27]: https://datatracker.ietf.org/doc/html/rfc3986#section-3.3
