@@ -1,5 +1,5 @@
 ---
-title:  "Hello, World!"
+title: Hello, World!
 ---
 
 Welcome to my blog, where I hope to share my knowledge, thoughts, experience, and ideas
