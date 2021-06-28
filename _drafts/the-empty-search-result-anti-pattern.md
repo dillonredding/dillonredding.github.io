@@ -4,7 +4,7 @@ I saw [this post on Twitter][1] the other day and thought it would make for a go
 
 [1]: https://twitter.com/apihandyman/status/1397638739128733696
 
-The question focuses around this idea of the "empty search result." That is, we have a resource representing a collection of other resources (items) and we want to find items matching one or more criterion. The question then is: what should our response's status code be if no items match our criteria? We're given three options: `200 (OK)`, `204 (No Content)`, and `404 (Not Found)`.
+The question centers around this idea of the "empty search result." That is, we have a resource representing a collection of other resources (items) and we want to find items matching one or more criterion. The question then is: what should our response's status code be if no items match our criteria? We're given three options: `200 (OK)`, `204 (No Content)`, and `404 (Not Found)`.
 
 It's easy to take [HTTP status codes][2] at face value and use them without understanding the semantics at the protocol level. I get it. I've done it. RFCs aren't exactly easy reads. However, ignoring and redefining message components reduces interoperability of our server with other network components. So, rather than [bike-shed][3] about the "best" option, I'll fall back on standards written by people much smarter than me, primarily [RFC 7231][4].
 
