@@ -3,14 +3,12 @@ title: Communicating Resource Creation
 tags: [api, http, status codes]
 ---
 
-After [my last post][1], I thought I'd make another about HTTP etiquette, this time regarding another common anti-pattern around the use the [`201 (Created)`][2] status code. This one can be a bit tricky because, while you might be using the status code itself correctly, there are other parts of the message that have implications you might not be aware of.
+After [my last post][1], I thought I'd make another about HTTP etiquette, this time regarding a common misunderstanding of the [`201 (Created)`][2] status code. This one can be a bit tricky because, while you might be using the status code itself correctly, there are other parts of the message that have implications you might not be aware of.
 
 [1]: ../_posts/2021-06-28-the-empty-search-result-anti-pattern.md
 [2]: https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.2
 
-## Breaking Down `201`
-
-Here's the definition of `201` from RFC 7231:
+To understand the `201` status code better, let's look at the definition from RFC 7231:
 
 > The `201 (Created)` status code indicates that the request has been fulfilled
 > and has resulted in one or more new resources being created. The primary
@@ -18,18 +16,18 @@ Here's the definition of `201` from RFC 7231:
 > field in the response or, if no `Location` field is received, by the effective
 > request URI.
 
-Let's start with the first part. What does it mean to create a resource? Does it mean we inserted a row into a database? Well, maybe, but that doesn't matter at the protocol level. All it means is that a new [resource][3], and thus a new URI, is available to clients. How we communicate where those resources are is where the second part comes in.
+Note that we're talking about creating an [*HTTP resource*][3], meaning a new URI is available to clients as a result of processing a request. Our resource may or may not correspond to creating something on the server side such as inserting one or more rows into one or more tables in one or more databases, saving a file locally or remotely, or simply storing data in memory. Regardless, whatever is behind the resource doesn't matter at the protocol level. We're focused on URI-addressable resources.
 
 [3]: https://datatracker.ietf.org/doc/html/rfc7231#section-2
 
-Basically, if we don't include a [`Location`][4] header, we're saying the resource that was created can be found at the [effective request URI][5], which is the absolute URI of the request. However, if that's not where the new resource lives, then we need to include a `Location` header with the new URI.
+Speaking of, let's now breakdown the part about the `Location` header. If we include a [`Location`][4] header, whose value is a URI, then we're saying the newly created resource can be found at that URI. However, if we don't include a `Location` header, we're saying the new resource can be found at the [effective request URI][5], which is the absolute URI of the request.
 
 [4]: https://datatracker.ietf.org/doc/html/rfc7231#section-7.1.2
 [5]: https://datatracker.ietf.org/doc/html/rfc7230#section-5.5
 
-Let's see a few examples.
+Let's consider each case individually.
 
-## Creating via `POST`
+## `201` with a `Location`
 
 Probably the most common way to create new resource is with a `POST` request.
 
@@ -65,7 +63,7 @@ Without the `Location` header, our response would be saying we created a resourc
 
 There is, however, a case where we don't need a `Location` header.
 
-## Creating via `PUT`
+## `201` without a `Location`
 
 You're probably familiar with using `PUT` requests to update resources, but did you know it can be used to created resource as well? Here's the [definition of `PUT`][7]:
 
