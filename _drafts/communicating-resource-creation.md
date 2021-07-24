@@ -8,7 +8,41 @@ After [my last post][1], I thought I'd make another about HTTP etiquette, this t
 [1]: ../_posts/2021-06-28-the-empty-search-result-anti-pattern.md
 [2]: https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.2
 
-To understand the `201` status code better, let's look at the definition from RFC 7231:
+The way I see `201` used most is in response to a `POST` request for appending an item to a collection. Something like this:
+
+```http
+POST /books HTTP/1.1
+Host: example.com
+Content-Type: application/json
+Content-Length: 165
+
+{
+  "title": "RESTful Web APIs",
+  "authors": "Mike Amundsen, Sam Ruby, Leonard Richardson",
+  "publishers": "O'Reilly Media, Inc.",
+  "isbn": "9781449358068"
+}
+```
+
+We have a collection at `/books` and we want to add a book to it. The typical response is usually pretty simple:
+
+```http
+HTTP/1.1 201 Created
+Content-Type: application/json
+Content-Length: 180
+
+{
+  "id": 1234,
+  "title": "RESTful Web APIs",
+  "authors": "Mike Amundsen, Sam Ruby, Leonard Richardson",
+  "publishers": "O'Reilly Media, Inc.",
+  "isbn": "9781449358068"
+}
+```
+
+It has nothing to do with HTTP, but we usually get back some sort of identifier in the representation (`id`) along with the `201`. The thing our server is trying to communicate in this case is that there's a new resource at `/books/1234`, however this approach creates some issues. I won't go into all of the issues in this post (maybe in later posts 🤞🏻), I just want to focus on the one at the protocol level. To get a better understanding of the issue, let's look at the definition of the `201` status code from [RFC 7231][3]:
+
+[3]: https://datatracker.ietf.org/doc/html/rfc7231
 
 > The `201 (Created)` status code indicates that the request has been fulfilled
 > and has resulted in one or more new resources being created. The primary
@@ -16,90 +50,57 @@ To understand the `201` status code better, let's look at the definition from RF
 > field in the response or, if no `Location` field is received, by the effective
 > request URI.
 
-Note that we're talking about creating an [*HTTP resource*][3], meaning a new URI is available to clients as a result of processing a request. Our resource may or may not correspond to creating something on the server side such as inserting one or more rows into one or more tables in one or more databases, saving a file locally or remotely, or simply storing data in memory. Regardless, whatever is behind the resource doesn't matter at the protocol level. We're focused on URI-addressable resources.
-
-[3]: https://datatracker.ietf.org/doc/html/rfc7231#section-2
-
-Speaking of, let's now breakdown the part about the `Location` header. If we include a [`Location`][4] header, whose value is a URI, then we're saying the newly created resource can be found at that URI. However, if we don't include a `Location` header, we're saying the new resource can be found at the [effective request URI][5], which is the absolute URI of the request.
+Since our response above is missing a [`Location`][4] header, our server is _really_ saying that a new resource was created at `/books`. Clearly, that's not the case, that's our collection, which already existed. So, a more appropriate response would look as follows:
 
 [4]: https://datatracker.ietf.org/doc/html/rfc7231#section-7.1.2
-[5]: https://datatracker.ietf.org/doc/html/rfc7230#section-5.5
-
-Let's consider each case individually.
-
-## `201` with a `Location`
-
-Probably the most common way to create new resource is with a `POST` request.
-
-Suppose we have a server with a contact list resource at `/contacts`. We'll assume we can make a `GET` request for `/contacts` to see the entire contact list.
-
-If a client wants to create a new contact, they can make a `POST` request on the contact list resource. For example:
-
-```http
-POST /contacts HTTP/1.1
-Host: example.com
-Content-Type: text/vcard
-Content-Length: 125
-
-BEGIN:VCARD
-VERSION:4.0
-FN:Ronald Bilius Weasley
-NICKNAME:Ron
-BDAY:19800301
-EMAIL:ronald.weasley@hogwarts.edu
-END:VCARD
-```
-
-Here, the client is using [vCard][6] to represent an individual, but the details don't matter for our purposes. If all goes well on the server side, we respond with a `201`, including the URI of the new contact resource:
-
-[6]: https://datatracker.ietf.org/doc/html/rfc6350
 
 ```http
 HTTP/1.1 201 Created
-Location: /contacts/7ed4b35e-4ee7-4552-af7e-1a6a4a2c29c9
+Location: /books/9781449358068
 ```
 
-Without the `Location` header, our response would be saying we created a resource `/contacts`, but that resource already exists, so the `Location` header is required here.
+This says that in response to our request a new resource was created at `/books/9781449358068`. We could have used an absolute URL, but since the `Location` is a [relative reference][5], it's resolved against the [effective request URI][6]: `http://example.com/books`, meaning the absolute URL of the new resource is `http://example.com/books/9781449358068`.
 
-There is, however, a case where we don't need a `Location` header.
+[5]: https://datatracker.ietf.org/doc/html/rfc3986#section-4.2
+[6]: https://datatracker.ietf.org/doc/html/rfc7230#section-5.5
+
+We also could have included the representation in the response, but now that the client has the URL of the new resource, they don't need the identifier. Since all we added to the representation in the response was the `id`, the client doesn't need the representation and we save network bandwidth in the process.
 
 ## `201` without a `Location`
 
-You're probably familiar with using `PUT` requests to update resources, but did you know it can be used to created resource as well? Here's the [definition of `PUT`][7]:
+We saw that not including a `Location` is technically valid, but when would we want to do that? One reason might be to give clients control over the URI.
+
+"Why would we want to do that," you might ask? Perhaps we don't want to generate a URL for each resource. Going back to our book example, suppose we want to allow clients to create resources that represent wishlists of books found at `/wishlists/{id}`, but instead of the server generating a value for `id`, we let the clients choose it.
+
+"Okay, cool, but how do we do that?" I'm glad you asked! You're probably familiar with using `PUT` to update resources, but according to [RFC 7231][7], a `PUT` request asks that "the target resource be *created or replaced* [emphasis mine]". It goes on to say that "if the target resource does not have a current representation and the `PUT` successfully creates one, then the origin server MUST inform the user agent by sending a `201 (Created)` response." So, if a resource doesn't exist at particular URL, a `PUT` could be used to create it (if the server allows it).
 
 [7]: https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.4
 
-> The `PUT` method requests that the state of the target resource be created or
-> replaced with the state defined by the representation enclosed in the request
-> message payload.
-
-RFC 7231 goes on to state:
-
-> If the target resource does not have a current representation and the `PUT`
-> successfully creates one, then the origin server MUST inform the user agent by
-> sending a `201 (Created)` response.
-
-Essentially, what that means is, if a `PUT` request creates resource, the client effectively controls that resources URI. For example:
+Tying our why and how together, our request might look like the following:
 
 ```http
-PUT /contacts/7ed4b35e/best-friends HTTP/1.1
+PUT /wishlists/classics HTTP/1.1
+Host: example.com
 Content-Type: text/uri-list
-Content-Length: 42
+Content-Length: 118
 
-# Harry
-/contacts/00c747fd
-# Hermione
-/contacts/59f3757e
+http://example.com/books/9780141439518
+http://example.com/books/9781443434973
+http://example.com/books/9780743273565
 ```
 
-[69]: https://datatracker.ietf.org/doc/html/rfc2483#section-5
+Assuming `/wishlists/classics` doesn't exist, we create it:
 
 ```http
 HTTP/1.1 201 Created
 ```
 
-## Creating Multiple Resources
+This means the resource was successfully created at the [effective request URI][6]: `http://example.com/wishlists/classics`.
 
-<!-- TODO -->
+Our server could allow the same request to update the resource, if it already exists. For `PUT` requests, RFC 7231 states that "if the target resource does have a current representation and that representation is successfully modified [...], then the origin server MUST send either a `200 (OK)` or a `204 (No Content)` response".
 
-## Conclusion
+## Summary
+
+When accepting `POST` to create and append an item to a collection, respond with a `201` and include a `Location` header. If you can't include a `Location` header (or simply don't want to), just use a `200 (OK)`. You're not providing value to anyone by falsely reporting that a resource was created when it already existed. Alternatively, use `PUT` to create your resources.
+
+When using `PUT` to create resources, don't worry about the `Location` header.
