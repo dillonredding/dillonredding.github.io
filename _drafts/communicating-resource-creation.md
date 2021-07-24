@@ -3,7 +3,7 @@ title: Communicating Resource Creation
 tags: [api, http, status codes]
 ---
 
-After [my last post][1], I thought I'd make another about HTTP etiquette, this time regarding a common misunderstanding of the [`201 (Created)`][2] status code. This one can be a bit tricky because, while you might be using the status code itself correctly, there are other parts of the message that have implications you might not be aware of.
+After [my last post][1], I thought I'd make another about HTTP etiquette, this time regarding a common misuse of the [`201 (Created)`][2] status code in APIs. This one can be a bit tricky because, while you might be using the status code itself correctly, there is another part of the message that has implications you might not be aware of.
 
 [1]: ../_posts/2021-06-28-the-empty-search-result-anti-pattern.md
 [2]: https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.2
@@ -40,13 +40,13 @@ Content-Length: 180
 }
 ```
 
-In the response, we usually get some sort of generated identifier in the representation (`id`) along with the `201`. This has nothing to do with HTTP, but what our server is typically trying to communicate is that there's a new resource at `/books/1234`, however this approach creates some issues.
+In the response, we usually get some sort of server-generated identifier in the representation (`id` in the example above). This has nothing to do with HTTP, but what our API is typically trying to communicate is that there's a new resource at `/books/1234`, however this approach creates some problems.
 
-First, it requires clients to understand the server's URL design strategy. They have to know to take the value of `id` and append that to `/books/`. This creates some tight coupling because we know that [URLs are opaque][3] and thus an implementation detail of the server.
+First, clients are required to understand the server's URL design strategy. To later access the new resource, they have to know to take the value of the identifier and append that as a path segment to the collection's URL. (That's fine if your media type defines this behavior, but I'm focused on the conventional "REST" APIs that use plain JSON. More on this in a later post.) This requirement couples clients to the servers because [URLs are opaque][3] and thus an implementation detail of the server.
 
 [3]: https://www.w3.org/DesignIssues/Axioms.html#opaque
 
-Second, and more to the point of this post, is a problem at the protocol level, a missing piece in the response message. To get a better understanding of this, let's look at the definition of the `201` status code from [the HTTP standard][4]:
+Second, and more to the point of this post, is an issue at the protocol level. To get a better understanding of this, let's look at the definition of the `201` status code from [the HTTP standard][4]:
 
 [4]: https://datatracker.ietf.org/doc/html/rfc7231
 
@@ -65,18 +65,18 @@ HTTP/1.1 201 Created
 Location: /books/9781449358068
 ```
 
-This says that in response to our request a new resource was created at `http://example.com/books/9781449358068`. We could have sent back the absolute URL, but `Location` is defined as a [URI reference][6]. The HTTP standard states that when the `Locations` is a [relative reference][7], it's [resolved][8] against the [effective request URI][9]: `http://example.com/books`.
+This says that in response to our request a new resource was created at `http://example.com/books/9781449358068`. We could have sent back the absolute URL, but the HTTP standard defines the `Location` header as a [URI reference][6], and when it's a [relative reference][7], it's [resolved][8] against the [effective request URI][9]: `http://example.com/books`.
 
 [6]: https://datatracker.ietf.org/doc/html/rfc3986#section-4.1
 [7]: https://datatracker.ietf.org/doc/html/rfc3986#section-4.2
 [8]: https://datatracker.ietf.org/doc/html/rfc3986#section-5
 [9]: https://datatracker.ietf.org/doc/html/rfc7230#section-5.5
 
-We also could have included the representation in the response, but now that the client has the URL of the new resource, they don't need the identifier, and since that's all we added to the representation in the response, the client doesn't need it, and we same some network bandwidth in the process. Furthermore, we loosen the coupling by reducing the clients' need to understand the server's URLs.
+We also could have included the representation in the response, but now that the client has the URL of the new resource, they don't need the identifier, and since that's all we added to the representation in the response, the client doesn't need it and we save some network bandwidth in the process. Furthermore, we loosen the coupling by reducing the clients' need to understand the server's URLs.
 
 ## `201` without a `Location`
 
-We saw that not including a `Location` is technically valid, but when would we want to do that? One reason would be to give clients control over the URI, but why would we want to do that? Perhaps we don't want to generate a URL for each resource.
+We saw that not including a `Location` _is_ technically valid, but when would we want to do that? One reason would be to give clients control over the URI, but _why_ would we want to do that? Perhaps we don't want to generate a URL for each resource.
 
 Going back to our book example, suppose we want to allow clients to create resources that represent wishlists of books found at `/wishlists/{id}`, but instead of the server generating a value for `id`, we let the clients choose it.
 
@@ -84,7 +84,7 @@ You're probably familiar with using `PUT` to update resources, but according to 
 
 [10]: https://datatracker.ietf.org/doc/html/rfc7231#section-4.3.4
 
-So, a request to create a wishlist might look something like the following:
+So, a request to create a wishlist might look something like this:
 
 ```http
 PUT /wishlists/classics HTTP/1.1
@@ -97,7 +97,7 @@ http://example.com/books/9781443434973
 http://example.com/books/9780743273565
 ```
 
-Assuming the resource at `/wishlists/classics` doesn't have a representation (i.e., exist), the server creates it and informs the client:
+Assuming the resource at `/wishlists/classics` doesn't have a representation (i.e., it doesn't exist), the server creates it and informs the client:
 
 ```http
 HTTP/1.1 201 Created
@@ -113,4 +113,4 @@ When accepting `POST` to create and append an item to a collection, respond with
 
 Alternatively, use `PUT` to create your resources, in which case don't worry about sending a `Location` header at all.
 
-Have you seen this
+I'd love to hear your thoughts, comments, and feedback on this post, especially if you've seen something similar. You can reach out to me on Twitter [@dillon_redding](https://twitter.com/dillon_redding).
