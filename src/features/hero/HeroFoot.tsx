@@ -1,14 +1,26 @@
 import { Link, useLocation } from 'react-router-dom';
 
-function HeroFoot() {
+interface TabProps {
+  children: string;
+  to: string;
+}
+
+function Tab(props: TabProps) {
   const location = useLocation();
+  const isActive = location.pathname.startsWith(props.to);
+  return (
+    <li className={isActive ? 'is-active' : ''}>
+      <Link to={props.to}>{props.children}</Link>
+    </li>
+  );
+}
+
+function HeroFoot() {
   return (
     <div className="hero-foot">
       <nav className="tabs is-boxed is-centered">
         <ul>
-          <li className={location.pathname.startsWith('/e4p') ? 'is-active' : ''}>
-            <Link to="/e4p">Exercises for Programmers</Link>
-          </li>
+          <Tab to="/e4p">Exercises for Programmers</Tab>
         </ul>
       </nav>
     </div>
