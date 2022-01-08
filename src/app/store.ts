@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import navbarMenuReducer from '../features/navbar/navbarMenuSlice';
+import { navbarMenuReducer } from '../features/navbar';
 
 export const store = configureStore({
   reducer: {
