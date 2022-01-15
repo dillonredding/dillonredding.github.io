@@ -1,17 +1,18 @@
+import { Columns, Container } from 'react-bulma-components';
 import { Outlet } from 'react-router-dom';
-import Menu from '../features/e4p/menu';
+import ExerciseMenu from '../features/e4p/ExerciseMenu';
 
 export function ExercisesForProgrammers() {
   return (
-    <div className="container">
-      <div className="columns">
-        <div className="column is-narrow">
-          <Menu />
-        </div>
-        <div className="column">
+    <Container>
+      <Columns>
+        <Columns.Column narrow>
+          <ExerciseMenu />
+        </Columns.Column>
+        <Columns.Column>
           <Outlet />
-        </div>
-      </div>
-    </div>
+        </Columns.Column>
+      </Columns>
+    </Container>
   );
 }

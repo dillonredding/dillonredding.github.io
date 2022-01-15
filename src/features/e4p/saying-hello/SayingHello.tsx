@@ -1,49 +1,41 @@
 import { useState } from 'react';
+import { Button, Form, Heading } from 'react-bulma-components';
+
+import GreetingModal from './GreetingModal';
 
 export function SayingHello() {
   const [name, setName] = useState('');
-  const [isGreetingActive, setIsGreetingActive] = useState(false);
+  const [showGreeting, setShowGreeting] = useState(false);
   return (
     <>
-      <h1 className="title">Saying Hello</h1>
-      <div className="field">
-        <label htmlFor="name" className="label">
-          Name
-        </label>
-        <div className="control">
-          <input
-            id="name"
-            type="text"
-            className="input"
-            placeholder="Enter your name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </div>
-      </div>
-      <div className="field">
-        <div className="control">
-          <button className="button is-link" onClick={() => setIsGreetingActive(true)}>
-            Greet
-          </button>
-        </div>
-      </div>
-      <GreetingModal name={name} active={isGreetingActive} onClose={() => setIsGreetingActive(false)} />
+      <Heading>Saying Hello</Heading>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setShowGreeting(true);
+        }}
+      >
+        <Form.Field>
+          <Form.Label htmlFor="name">Name</Form.Label>
+          <Form.Control>
+            <Form.Input
+              id="name"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+            />
+          </Form.Control>
+        </Form.Field>
+        <Form.Field>
+          <Form.Control>
+            <Button color="link" onClick={() => setShowGreeting(true)}>
+              Greet
+            </Button>
+          </Form.Control>
+        </Form.Field>
+        <GreetingModal greeting={makeGreeting(name)} show={showGreeting} onClose={() => setShowGreeting(false)} />
+      </form>
     </>
-  );
-}
-
-interface GreetingModalProps extends Pick<ModalProps, 'active' | 'onClose'> {
-  name: string;
-}
-
-function GreetingModal(props: GreetingModalProps) {
-  return (
-    <Modal active={props.active} onClose={props.onClose}>
-      <div className="box has-text-centered">
-        <p className="title">{makeGreeting(props.name)}</p>
-      </div>
-    </Modal>
   );
 }
 
@@ -56,25 +48,6 @@ function makeGreeting(name: string) {
     default:
       return `Hello, ${name}!`;
   }
-}
-
-interface ModalProps<T = JSX.Element> extends ParentProps<T> {
-  active: boolean;
-  onClose: () => void;
-}
-
-interface ParentProps<T = JSX.Element> {
-  children: T;
-}
-
-export function Modal(props: ModalProps) {
-  return (
-    <div className={'modal' + (props.active ? ' is-active' : '')}>
-      <div className="modal-background" onClick={props.onClose} />
-      <div className="modal-content">{props.children}</div>
-      <button className="modal-close is-large" aria-label="close" onClick={props.onClose}></button>
-    </div>
-  );
 }
 
 export default SayingHello;

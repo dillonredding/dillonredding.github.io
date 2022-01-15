@@ -12,12 +12,15 @@ export const navbarMenuSlice = createSlice({
   name: 'navbar-menu',
   initialState,
   reducers: {
-    toggle: (state) => {
+    closeNavbarMenu: (state) => {
+      state.hidden = true;
+    },
+    toggleNavbarMenu: (state) => {
       state.hidden = !state.hidden;
     }
   }
 });
 
-export const { toggle } = navbarMenuSlice.actions
+export const { closeNavbarMenu, toggleNavbarMenu } = navbarMenuSlice.actions;
 
-export default navbarMenuSlice.reducer
+export default navbarMenuSlice.reducer;
