@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { navbarMenuReducer } from '../features/navbar';
+import { printingQuotesReducer } from '../features/e4p/printing-quotes';
 
 export const store = configureStore({
   reducer: {
-    navbarMenu: navbarMenuReducer
+    navbarMenu: navbarMenuReducer,
+    printingQuotes: printingQuotesReducer
   }
 });
 
