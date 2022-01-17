@@ -8,7 +8,7 @@ export const Navbar = () => {
   const hidden = useAppSelector((state) => state.navbarMenu.hidden);
   const dispatch = useAppDispatch();
   return (
-    <Nav className="is-spaced" active={!hidden}>
+    <Nav color="dark" className="is-spaced" active={!hidden}>
       <Container>
         <Nav.Brand>
           <Nav.Burger onClick={() => dispatch(toggleNavbarMenu())} />

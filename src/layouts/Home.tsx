@@ -8,10 +8,8 @@ export function Home() {
   const location = useLocation();
   return (
     <>
+      <Navbar />
       <Hero color="dark" className="mb-5">
-        <Hero.Header>
-          <Navbar />
-        </Hero.Header>
         <Hero.Body>
           <Container className="has-text-centered">
             <Heading>dillonredding.github.io</Heading>
