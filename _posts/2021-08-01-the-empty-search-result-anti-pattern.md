@@ -1,5 +1,5 @@
 ---
-layout: post
+date: 2021-08-01
 summary: Use the correct status code when searching for things in your API
 ---
 
