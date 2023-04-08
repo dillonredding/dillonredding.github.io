@@ -1,6 +1,6 @@
 ---
-date: '2021-08-01'
 summary: Use the correct status code when searching for things in your API
+published_on: 2021-08-01
 ---
 
 # The Empty Search Result Anti-Pattern
