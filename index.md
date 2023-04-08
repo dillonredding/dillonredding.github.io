@@ -8,10 +8,24 @@ This is where I get ideas out of my head and onto "paper" by rambling about and 
 
 ---
 
+{% for post in site.posts %}
+
+<!-- prettier-ignore -->
+<a href="{{ post.url }}">
+  <h2>{{ post.title }}</h2>
+</a>
+{{ post.summary }}
+
+Published on {{ post.date }}
+
+{% endfor %}
+
 <ul>
   {% for post in site.posts %}
     <li>
       <a href="{{ post.url }}">{{ post.title }}</a>
+      {{ post.summary }}
+      Published on {{ post.date }}
     </li>
   {% endfor %}
 </ul>
