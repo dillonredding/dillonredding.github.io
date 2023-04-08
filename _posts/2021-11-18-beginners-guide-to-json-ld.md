@@ -1,4 +1,5 @@
 ---
+title: Beginner's Guide to JSON-LD
 summary: A brief intro to JSON-LD and the framework behind it
 published_on: 2021-11-18
 ---
