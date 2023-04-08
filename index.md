@@ -10,11 +10,9 @@ This is where I get ideas out of my head and onto "paper" by rambling about and 
 
 {% for post in site.posts %}
 
-<!-- prettier-ignore -->
-<a href="{{ post.url }}">
-  <h2>{{ post.title }}</h2>
-</a>
-{{ post.summary }}
+## [{{ post.title }}]({{ post.url }})
+
+### {{ post.summary }}
 
 Published on {{ post.date }}
 
