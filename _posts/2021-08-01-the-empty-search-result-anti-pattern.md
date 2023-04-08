@@ -73,7 +73,7 @@ Note the empty array at `/collection/items` (see [JSON Pointer](https://datatrac
 
 Or maybe we want to use something simpler like [CSV](https://www.rfc-editor.org/rfc/rfc4180):
 
-```csv
+```http
 HTTP/1.1 200 OK
 Content-Type: text/csv;header=present
 Content-Length: 36
@@ -160,4 +160,4 @@ TL;DR: Go with `200`, if `/users?name=spock` is a collection, and `404`, if it's
 
 The issues I see with options [2](#option-2-204) and [3](#option-3-404) really boil down to mixing semantics. That is, the protocol is used (and abused) to communicate application or domain semantics. HTTP doesn't care about things like "collections" or "search results". It doesn't care about the architecture behind the various components. It cares about resources and messages. We can still communicate our application semantics while respecting the protocol, being careful to [separate those concerns](https://en.wikipedia.org/wiki/Separation_of_concerns).
 
-Thanks for reading! Feel free to hit me up on Twitter [@dillon_redding](https://twitter.com/dillon_redding) with questions or comments.
+Thanks for reading!
