@@ -9,3 +9,9 @@
 p:has(img) {
   text-align: center;
 }
+
+@media (max-width: 1060px) {
+  .wrapper > section {
+    padding: 1.2rem;
+  }
+}
