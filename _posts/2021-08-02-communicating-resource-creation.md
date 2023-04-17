@@ -5,7 +5,7 @@ published_on: 2021-08-02
 
 # Communicating API Resource Creation
 
-After [my last post](./2021-08-01-the-empty-search-result-anti-pattern.md), I thought I'd make another about HTTP etiquette, this time regarding a common misuse of [the `201 (Created)` status code](https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.2) in APIs. This one can be a bit tricky because, while you might be using the status code itself correctly, there is another part of the message that has implications you might not be aware of.
+After [my last post]({% post_url 2021-08-01-the-empty-search-result-anti-pattern %}), I thought I'd make another about HTTP etiquette, this time regarding a common misuse of [the `201 (Created)` status code](https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.2) in APIs. This one can be a bit tricky because, while you might be using the status code itself correctly, there is another part of the message that has implications you might not be aware of.
 
 The way I see `201` used most is in response to a `POST` request for appending an item to a collection. Something like this:
 
