@@ -1,4 +1,5 @@
 ---
+title: The Empty Search Result Anti-Pattern
 excerpt: Use the correct status code when searching for things in your API
 ---
 
