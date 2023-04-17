@@ -12,6 +12,6 @@ This is where I get ideas out of my head and onto "paper" by rambling about and 
   <a href="{{ post.url }}">{{ post.title }}</a>
 </h2>
 <p class="summary">{{ post.summary }}</p>
-<p>Published on {{ post.date | date: "%m %d %Y" }}</p>
+<p>Published on {{ post.date | date: "%b %e %Y" }}</p>
 
 {% endfor %}
