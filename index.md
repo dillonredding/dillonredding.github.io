@@ -1,3 +1,17 @@
-# [Posts](./posts.md)
+# Welcome to my Blog!
 
-# [About](./about.md)
+> "Stay awhile and listen!"<br>
+> — Deckard Cain
+
+This is where I get ideas out of my head and onto "paper" by rambling about and exploring all things software development. If a post piques your interest and you'd like to see more, feel free to [hit me up on Twitter](https://twitter.com/dillon_redding) or [open an issue on GitHub](https://github.com/dillonredding/dillonredding.github.io/issues/new).
+
+{% for post in site.posts %}
+
+<hr/>
+<h2>
+  <a href="{{ post.url }}">{{ post.title }}</a>
+</h2>
+<p class="summary">{{ post.summary }}</p>
+<p>Published on {{ post.published_on }}</p>
+
+{% endfor %}
