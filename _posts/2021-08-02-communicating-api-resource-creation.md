@@ -1,4 +1,5 @@
 ---
+title: Communicating API Resource Creation
 excerpt: Your 201s might not mean what you think they mean
 ---
 
