@@ -1,6 +1,5 @@
 ---
-summary: Your 201s might not mean what you think they mean
-published_on: 2021-08-02
+excerpt: Your 201s might not mean what you think they mean
 ---
 
 # Communicating API Resource Creation
