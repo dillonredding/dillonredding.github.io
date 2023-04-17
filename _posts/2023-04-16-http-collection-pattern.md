@@ -1,7 +1,6 @@
 ---
 title: HTTP Collection Pattern
-summary: See how CRUD operations map to HTTP messages
-published_on: 2023-04-16
+excerpt: See how CRUD operations map to HTTP messages
 ---
 
 # HTTP Collection Pattern

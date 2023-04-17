@@ -1,6 +1,5 @@
 ---
-summary: Use the correct status code when searching for things in your API
-published_on: 2021-08-01
+excerpt: Use the correct status code when searching for things in your API
 ---
 
 # The Empty Search Result Anti-Pattern
