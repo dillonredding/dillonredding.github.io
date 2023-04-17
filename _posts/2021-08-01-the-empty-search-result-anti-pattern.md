@@ -1,10 +1,7 @@
 ---
-layout: post
 title: The Empty Search Result Anti-Pattern
 excerpt: Use the correct status code when searching for things in your API
 ---
-
-# The Empty Search Result Anti-Pattern
 
 I saw [this poll on Twitter](https://twitter.com/apihandyman/status/1397638739128733696) the other day and thought it would make for a good first blog post since I've seen the exact same question where I used to work and there's no clear consensus about what is "correct" or "proper".
 

@@ -3,8 +3,6 @@ title: Beginner's Guide to JSON-LD
 excerpt: A brief intro to JSON-LD and the framework behind it
 ---
 
-# Beginner's Guide to JSON-LD
-
 I've become sort of the de facto expert on [JSON-LD](https://json-ld.org/) where I work and with all the questions I've been getting, I thought I'd write a little guide to make learning and getting started with JSON-LD a little easier and available to a wider audience.
 
 While there's already a lot of [learning material for JSON-LD](https://json-ld.org/learn.html) out there, I found JSON-LD quite daunting and confusing for a long time. So, hopefully, my perspective in this guide can help other, like-minded individuals.

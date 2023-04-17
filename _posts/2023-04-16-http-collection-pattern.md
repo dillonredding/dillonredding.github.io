@@ -3,8 +3,6 @@ title: HTTP Collection Pattern
 excerpt: See how CRUD operations map to HTTP messages
 ---
 
-# HTTP Collection Pattern
-
 Performing CRUD operations on a collection of items is a ubiquitous pattern in APIs. In this post, I'll take you through how each operation corresponds to pairs of HTTP request and response [messages](https://www.rfc-editor.org/rfc/rfc9110.html#name-messages).
 
 For APIs utilizing HTTP, the collection pattern consists of two types of resources: a collection and an item. The collection resource represents a sequence of zero or more items and accepts requests to create a new item. An item resource represents an individual element in the collection and accepts requests to update and delete the item.
