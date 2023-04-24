@@ -21,6 +21,6 @@ layout: null
     </item>
     {% endfor %}
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    <copyright>2021&ndash;2023 Dillon Redding</copyright>
+    <copyright>2021-2023 Dillon Redding</copyright>
   </channel>
 </rss>
