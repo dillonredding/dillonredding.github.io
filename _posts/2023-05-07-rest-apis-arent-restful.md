@@ -1,6 +1,6 @@
 ---
 title: REST APIs Aren't RESTful
-excerpt: Create and update a resource with a single method
+excerpt: Effects on a distributed system of violating the hypermedia constraint
 ---
 
 This post is a continuation of [my Twitter thread](https://twitter.com/dillon_redding/status/1626265554020335616) about how "REST" APIs don't actually satisfy the constraints of [REST architecture](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm). It's very easy to ignore the hypermedia constraint due to it's highly abstract definitions and lack of real-world examples. However, before I cover hypermedia and how to implement it in an API—a topic for another post—I want to explore the effects on a distributed system of violating [the uniform interface constraint](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_1_5) via the absence of hypermedia.
