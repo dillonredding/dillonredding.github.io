@@ -1,3 +1,3 @@
-# Dillon Redding's Blog
+# My Blog
 
-This repository is for my blog built with [Jekyll](https://jekyllrb.com) using [the Leap Day theme](https://github.com/pages-themes/leap-day).
+Built with [Jekyll](https://jekyllrb.com). Uses [the Leap Day theme](https://github.com/pages-themes/leap-day).
