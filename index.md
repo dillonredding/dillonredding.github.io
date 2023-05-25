@@ -1,5 +1,3 @@
-# Posts
-
 {% for post in site.posts %}
 
 <h2>
