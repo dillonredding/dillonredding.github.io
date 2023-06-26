@@ -1,0 +1,19 @@
+---
+---
+
+@import 'minima/skins/{{ site.minima.skin }}';
+@import 'minima/initialize';
+
+.post-list h3 {
+  margin-bottom: 0;
+}
+
+p:has(img) {
+  text-align: center;
+}
+
+// @media (max-width: 1060px) {
+//   .wrapper > section {
+//     padding: 1.2rem;
+//   }
+// }
