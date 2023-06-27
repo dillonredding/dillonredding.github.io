@@ -103,7 +103,7 @@ GET /orders?orderNumber=foo HTTP/1.1
 Host: api.example.com
 ```
 
-As with [outbound links](https://www.notion.so/Siren-H-Factors-a72892be39d8426bafad38b4d2362eea?pvs=21), it is not safe to assume the response to submitting an action will contain Siren content.
+As with [outbound links](#outbound-links), it is not safe to assume the response to submitting an action will contain Siren content.
 
 ### Non-Idempotent Updates
 
@@ -136,7 +136,7 @@ orderNumber=42&productCode=ABC123&quantity=10
 
 ### Idempotent Updates
 
-Lastly in link support, [idempotent updates](http://amundsen.com/hypermedia/hfactor/#li) are represented by [actions](https://github.com/kevinswiber/siren#actions-1) with an [idempotent](https://www.rfc-editor.org/rfc/rfc9110.html#name-idempotent-methods) `method` (e.g., `PUT`, `DELETE`). If the HTTP method doesn't support request content (i.e., `DELETE`), `fields` are [serialized as a URL-encoded form](https://url.spec.whatwg.org/#urlencoded-serializing) into the request URI's [query](https://www.rfc-editor.org/rfc/rfc3986#section-3.4), similar to a [templated query](https://www.notion.so/Siren-H-Factors-a72892be39d8426bafad38b4d2362eea?pvs=21). Otherwise, `fields` are serialized into the request body.
+Lastly in link support, [idempotent updates](http://amundsen.com/hypermedia/hfactor/#li) are represented by [actions](https://github.com/kevinswiber/siren#actions-1) with an [idempotent](https://www.rfc-editor.org/rfc/rfc9110.html#name-idempotent-methods) `method` (e.g., `PUT`, `DELETE`). If the HTTP method doesn't support request content (i.e., `DELETE`), `fields` are [serialized as a URL-encoded form](https://url.spec.whatwg.org/#urlencoded-serializing) into the request URI's [query](https://www.rfc-editor.org/rfc/rfc3986#section-3.4), similar to a [templated query](#templated-queries). Otherwise, `fields` are serialized into the request body.
 
 ```json
 {
@@ -163,7 +163,7 @@ The [link](https://github.com/kevinswiber/siren#links-1)'s and [embedded link](h
 
 ### Control Data for Interface Methods
 
-The [action](https://github.com/kevinswiber/siren#actions-1)'s `method` property specifies the HTTP method to use when submitting an action, which is what allows Siren to support [Templated Queries](https://www.notion.so/Siren-H-Factors-a72892be39d8426bafad38b4d2362eea?pvs=21), [Non-Idempotent Updates](https://www.notion.so/Siren-H-Factors-a72892be39d8426bafad38b4d2362eea?pvs=21), and [Idempotent Updates](https://www.notion.so/Siren-H-Factors-a72892be39d8426bafad38b4d2362eea?pvs=21).
+The [action](https://github.com/kevinswiber/siren#actions-1)'s `method` property specifies the HTTP method to use when submitting an action, which is what allows Siren to support [Templated Queries](#templated-queries), [Non-Idempotent Updates](#non-idempotent-updates), and [Idempotent Updates](#idempotent-updates).
 
 ### Control Data for Read Requests
 
@@ -211,7 +211,7 @@ Content-Length: 69420
 
 ## Summary
 
-Siren supports nearly every H-factor. Erring on the side of caution, the only factor not supported is [control data for read requests](https://www.notion.so/Siren-H-Factors-a72892be39d8426bafad38b4d2362eea?pvs=21).
+Siren supports nearly every H-factor. Erring on the side of caution, the only factor not supported is [control data for read requests](#control-data-for-read-requests).
 
 ![Siren H-Factors](/assets/img/siren-h-factors.svg)
 
