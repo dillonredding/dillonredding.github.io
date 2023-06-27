@@ -11,7 +11,7 @@ To do so, I'll present a simple "REST" API and client, then identify the problem
 
 Let's suppose we have an API that models a [kanban board](https://en.wikipedia.org/wiki/Kanban_board). The primary resource is a card, which sits in a column defining one of three stages: `To-Do`, `Doing`, `Done`. These stages define a workflow of resource state changes. In particular, a card in the `To-Do` stage can only move to the `Doing` stage. From `Doing`, the card can move to `Done` or back to `To-Do`. Finally, a card in the `Done` stage can only move back to `Doing`. In summary, a card cannot skip a stage and cannot wrap around. Here's a state diagram depicting the workflow:
 
-![Kanban board workflow](/assets/img/kanban-board-workflow.png)
+![Kanban board workflow](/assets/img/kanban-board-workflow.svg)
 
 As for the protocol details, we only need two operations for our example. First, the client needs to be able to retrieve a list of cards. Here's an example request/response:
 
