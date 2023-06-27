@@ -19,7 +19,9 @@ url: '' # the base hostname & protocol for your site, e.g. http://example.com
 author:
   name: Dillon Redding
   email: dillonredding@gmail.com
+google_analytics: G-9QBXKNSTJV
 
+# Front matter defaults
 defaults:
   - scope:
       path: '' # all files in the project
