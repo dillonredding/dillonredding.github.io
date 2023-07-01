@@ -63,7 +63,7 @@ Content-Type: application/vnd.siren+json
   "class": ["Person"],
   "links": [
     { "rel": ["self"], "href": "/people/alan-watts" }
-	]
+  ]
 }
 ```
 
