@@ -1,9 +1,13 @@
 ---
-title: REST APIs Aren't RESTful
+title: REST APIs ain't RESTful
 excerpt: Effects on a distributed system of violating the hypermedia constraint
 ---
 
-This post is a continuation of [my Twitter thread](https://twitter.com/dillon_redding/status/1626265554020335616) about how "REST" APIs don't actually satisfy the constraints of [REST architecture](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm). It's very easy to ignore the hypermedia constraint due to it's highly abstract definitions and lack of real-world examples. However, before I cover hypermedia and how to implement it in an API—a topic for another post—I want to explore the effects on a distributed system of violating [the uniform interface constraint](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_1_5) via the absence of hypermedia.
+This post is a continuation of [my Twitter thread](https://twitter.com/dillon_redding/status/1626265554020335616) about how "REST" APIs don't actually satisfy the constraints of [REST architecture](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm). It's very easy to ignore the hypermedia constraint due to it's highly abstract definitions and lack of real-world examples. Before I cover [how to add hypertext to an API]({% post_url 2023-07-14-api-evolvability-with-siren %}), I want to explore the effects on a distributed system of violating [the uniform interface constraint](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_1_5) via the absence of hypermedia.
+
+> "...if the engine of application state (and hence the API) is not being driven by hypertext, then it cannot be RESTful..."
+>
+> — Roy Fielding, [REST APIs must be hypertext-driven](https://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven)
 
 To do so, I'll present a simple "REST" API and client, then identify the problematic areas that are often overlooked. I won't go into detail on the server implementation since all the issues can be seen through the client implementation, but I do have [implementations of both on my GitHub](https://github.com/dillonredding/kanban-board-rest-api) for those that like to get their hands dirty.
 
@@ -70,8 +74,9 @@ If a client tries to skip a stage, they get a `400 (Bad Request)`.
 
 Now consider a client that moves all the cards on the board from one stage to the next (from left to right). The implementation is given below. If you don't understand JavaScript, don't worry, I'll walk you through it.
 
+<!-- prettier-ignore -->
 ```js
-function main() {
+async function main() {
   const cards = await fetch(`${baseUrl}/cards`)                 // (1)
     .then((res) => res.json());
   cards.forEach((card) => {
@@ -131,10 +136,14 @@ In a more realistic scenario, the server might add an `Approved` stage between `
 
 ## The Conclusion
 
+> "That is RPC. It screams RPC. There is so much coupling on display that it should be given an X rating."
+>
+> — Roy Fielding, [REST APIs must be hypertext-driven](https://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven)
+
 Without hypermedia, clients are required to intimately understand protocol and application semantics at design time, tightly coupling them to the server, making clients and the server difficult to change without coordination, and greatly limiting, if not entirely eliminating, component [evolvability](https://www.ics.uci.edu/~fielding/pubs/dissertation/net_app_arch.htm#sec_2_3_4_1).
 
 Software must be able to adapt to the requirements of its users, requirements that inevitably change. A system that cannot change to meet its users' needs will eventually become obsolete. In a distributed system, the independent evolution of components is crucial. While the examples given in this post are quite simple, they demonstrate the effects on [modifiability](https://www.ics.uci.edu/~fielding/pubs/dissertation/net_app_arch.htm#sec_2_3_4). In more complex instances, independently modifying clients and the server becomes especially more difficult.
 
-The server can encapsulate protocol and application semantics by providing them at runtime via hypermedia. "How?", you might ask. That's a topic for another post.
+The server can encapsulate its implementation details by providing things like protocol semantics at runtime via hypermedia. "How?", you might ask. Check out my follow-up post [API Evolvability with Siren]({% post_url 2023-07-14-api-evolvability-with-siren %}).
 
 One final note: I don't advocate that _every_ system conform to REST architecture. There is no one architecture to rule them all. Context is king. Every software architecture has benefits _and_ costs that should be carefully considered in each context.
