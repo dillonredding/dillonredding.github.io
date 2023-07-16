@@ -1,6 +1,6 @@
 ---
 title: API Evolvability with Siren
-excerpt: Part 2 of REST APIs ain't RESTful
+excerpt: Exploring adaptability through hypertext
 ---
 
 > "Everything changes and nothing stands still."
