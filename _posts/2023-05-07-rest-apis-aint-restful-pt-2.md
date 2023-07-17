@@ -1,15 +1,11 @@
 ---
-title: REST APIs ain't RESTful
-excerpt: Effects on a distributed system of violating the hypermedia constraint
+title: REST APIs ain't RESTful, Part 2
+excerpt: Demonstrating the effects of violating the hypermedia constraint
 ---
 
-This post is a continuation of [my Twitter thread](https://twitter.com/dillon_redding/status/1626265554020335616) about how "REST" APIs don't actually satisfy the constraints of [REST architecture](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm). It's very easy to ignore the hypermedia constraint due to it's highly abstract definitions and lack of real-world examples. Before I cover [how to add hypertext to an API]({% post_url 2023-07-14-api-evolvability-with-siren %}), I want to explore the effects on a distributed system of violating [the uniform interface constraint](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_1_5) via the absence of hypermedia.
+In [part 1]({% post_url 2023-02-16-rest-apis-aint-restful %}), I talked about how "REST" APIs don't actually satisfy the constraints of [REST architecture](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm). It's very easy to ignore [the hypermedia constraint](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_1_5) due to it's highly abstract definitions and lack of real-world examples, so now I want to demonstrate how violating that constraint via the absence of hypermedia impacts the API and its clients.
 
-> "...if the engine of application state (and hence the API) is not being driven by hypertext, then it cannot be RESTful..."
->
-> — Roy Fielding, [REST APIs must be hypertext-driven](https://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven)
-
-To do so, I'll present a simple "REST" API and client, then identify the problematic areas that are often overlooked. I won't go into detail on the server implementation since all the issues can be seen through the client implementation, but I do have [implementations of both on my GitHub](https://github.com/dillonredding/kanban-board-rest-api) for those that like to get their hands dirty.
+I'll do so by presenting a simple "REST" API and client, then identify the problematic areas that are often overlooked. I won't go into detail on the server implementation since all the issues can be seen through the client implementation, but I do have [implementations of both on my GitHub](https://github.com/dillonredding/kanban-board-rest-api) for those that like to get their hands dirty.
 
 ## The "REST" API
 
