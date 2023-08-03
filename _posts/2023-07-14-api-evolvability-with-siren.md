@@ -147,7 +147,7 @@ Implementing this change requires two small updates to the server. First, when g
 }
 ```
 
-No change to the client is necessary. It will automatically adapt to those change because the client makes no assumptions about protocol methods, and there is still no data required for submission.
+No change to the client is necessary. It will automatically adapt to those modifications because the client makes no assumptions about protocol methods, and there is still no data required for submission.
 
 ### Changing Application Semantics
 
