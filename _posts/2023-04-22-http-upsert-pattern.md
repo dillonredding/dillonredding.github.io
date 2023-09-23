@@ -1,6 +1,7 @@
 ---
 title: HTTP Upsert Pattern
 excerpt: Create and update a resource with a single method
+tags: api http pattern
 ---
 
 It’s very common to use `POST` to create a resource, especially in the collection pattern, but did you know you can also create resources with `PUT`? According to [the HTTP specification](https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.4-2):

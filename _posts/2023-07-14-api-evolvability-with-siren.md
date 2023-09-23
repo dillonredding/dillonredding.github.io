@@ -1,6 +1,7 @@
 ---
 title: API Evolvability with Siren
 excerpt: Exploring adaptability through hypertext
+tags: api hypermedia rest siren
 ---
 
 > "Everything changes and nothing stands still."

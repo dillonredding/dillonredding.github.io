@@ -1,6 +1,7 @@
 ---
 title: Beginner's Guide to JSON-LD
 excerpt: A brief intro to JSON-LD and the framework behind it
+tags: json linked-data rdf
 ---
 
 I've become sort of the de facto expert on [JSON-LD](https://json-ld.org/) where I work and with all the questions I've been getting, I thought I'd write a little guide to make learning and getting started with JSON-LD a little easier and available to a wider audience.

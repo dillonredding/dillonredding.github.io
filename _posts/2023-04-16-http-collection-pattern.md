@@ -1,6 +1,7 @@
 ---
 title: HTTP Collection Pattern
 excerpt: See how CRUD operations map to HTTP messages
+tags: api http pattern
 ---
 
 Performing CRUD operations on a collection of items is a ubiquitous pattern in APIs. In this post, I'll take you through how each operation corresponds to pairs of HTTP request and response [messages](https://www.rfc-editor.org/rfc/rfc9110.html#name-messages).

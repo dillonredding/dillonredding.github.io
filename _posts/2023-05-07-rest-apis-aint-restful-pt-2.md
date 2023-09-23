@@ -1,6 +1,7 @@
 ---
 title: REST APIs ain't RESTful, Part 2
 excerpt: Demonstrating the effects of violating the hypermedia constraint
+tags: api hypermedia rest
 ---
 
 In [part 1]({% post_url 2023-02-16-rest-apis-aint-restful %}), I talked about how "REST" APIs don't actually satisfy the constraints of [REST architecture](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm). It's very easy to ignore [the hypermedia constraint](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_1_5) due to it's highly abstract definitions and lack of real-world examples, so now I want to demonstrate how violating that constraint via the absence of hypermedia impacts the API and its clients.

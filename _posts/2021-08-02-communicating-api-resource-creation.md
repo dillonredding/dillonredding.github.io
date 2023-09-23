@@ -1,6 +1,7 @@
 ---
 title: Communicating API Resource Creation
 excerpt: Your 201s might not mean what you think they mean
+tags: api http pattern
 ---
 
 After [my last post]({% post_url 2021-08-01-the-empty-search-result-anti-pattern %}), I thought I'd make another about HTTP etiquette, this time regarding a common misuse of [the `201 (Created)` status code](https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.2) in APIs. This one can be a bit tricky because, while you might be using the status code itself correctly, there is another part of the message that has implications you might not be aware of.

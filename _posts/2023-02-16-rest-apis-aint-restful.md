@@ -1,6 +1,7 @@
 ---
 title: REST APIs ain't RESTful
 excerpt: Analysis of fiat REST API architecture
+tags: api hypermedia rest
 ---
 
 With Twitter going to shit, I thought I'd retroactively transcribe [a tweet of mine](https://twitter.com/dillon_redding/status/1626265554020335616) into a blog post so you can read at your leisure without worrying about their shenanigans.

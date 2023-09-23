@@ -1,6 +1,7 @@
 ---
 title: Siren H-Factors
 excerpt: Examining Siren's hypertext features
+tags: hypermedia siren
 ---
 
 Let's explore [Siren](https://github.com/kevinswiber/siren)'s [H-Factors](http://amundsen.com/hypermedia/hfactor/), a set of hypermedia features measuring the sophistication of a hypertext format. In doing so, we'll see how Siren's hypertext elements are translated to HTTP requests.
