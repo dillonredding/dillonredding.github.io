@@ -37,6 +37,9 @@ plugins:
 remote_theme: jekyll/minima
 minima:
   skin: auto
+  header_pages:
+    - about.md
+    - projects.md
   social_links:
     - platform: github
       user_url: https://github.com/dillonredding
