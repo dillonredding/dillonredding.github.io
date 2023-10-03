@@ -13,7 +13,7 @@
 # in the templates via {{ site.myvariable }}.
 title: Ctrl+Alt+Dillete
 description: >-
-  Professional programmer blog
+  Some electrons were likely harmed in the making of this blog
 baseurl: '' # the subpath of your site, e.g. /blog
 url: '' # the base hostname & protocol for your site, e.g. http://example.com
 author:
