@@ -1,6 +1,6 @@
 ---
-title: API Evolvability with Siren
-excerpt: Exploring adaptability through hypertext
+title: REST APIs ain't RESTful, Part 3
+excerpt: API evolvability with Siren
 tags: api hypermedia rest siren
 ---
 
