@@ -141,6 +141,6 @@ Without hypermedia, clients are required to intimately understand protocol and a
 
 Software must be able to adapt to the requirements of its users, requirements that inevitably change. A system that cannot change to meet its users' needs will eventually become obsolete. In a distributed system, the independent evolution of components is crucial. While the examples given in this post are quite simple, they demonstrate the effects on [modifiability](https://www.ics.uci.edu/~fielding/pubs/dissertation/net_app_arch.htm#sec_2_3_4). In more complex instances, independently modifying clients and the server becomes especially more difficult.
 
-The server can encapsulate its implementation details by providing things like protocol semantics at runtime via hypermedia. "How?", you might ask. Check out my follow-up post [API Evolvability with Siren]({% post_url 2023-07-14-api-evolvability-with-siren %}).
+The server can encapsulate its implementation details by providing things like protocol semantics at runtime via hypermedia. "How?", you might ask. Check out my follow-up post [API Evolvability with Siren]({% post_url 2023-07-14-rest-apis-aint-restful-pt-3 %}).
 
 One final note: I don't advocate that _every_ system conform to REST architecture. There is no one architecture to rule them all. Context is king. Every software architecture has benefits _and_ costs that should be carefully considered in each context.
