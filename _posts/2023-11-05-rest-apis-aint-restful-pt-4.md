@@ -82,7 +82,7 @@ While this technically complies with [RFC 8288](https://www.rfc-editor.org/rfc/r
 https://api.example.com/profile#https://api.example.com/rel/blocked-by
 ```
 
-Having a URI whose fragment is another URI may be jarring to some API users and introduces room for error, especially if you host our API in multiple environments, each with it's own host name.
+Having a URI whose fragment is another URI may be jarring to some API users and introduces room for error, especially if we host our API in multiple environments, each with it's own host name.
 
 However, RFC 8288 states that "while extension relation types are required to be URIs, a [serialization] of links can specify that they are expressed in another form, as long as they can be converted to URIs." For that reason, I generally recommend sticking to short, human-readable names for custom link relations. With this approach, our custom link relation `descriptor` becomes the following:
 
@@ -233,6 +233,6 @@ In general, the process for documenting a Siren API with ALPS is as follows:
    3. Each action name is either `safe`, `idempotent`, or `unsafe` (depending on the action's `method`).
 3. Within each action name `descriptor`, define a `semantic` `descriptor` for every name of every field that may be present in the action.
 
-To keep our ALPS documents [DRY](https://en.wikipedia.org/wiki/Don't_repeat_yourself), define shared descriptors and reference them using the `href` attribute. These can technically appear anywhere in the document since they are referenced by `id`, but I recommend defining shared descriptors at the top level (directly under `alps`).
+To keep our ALPS documents [DRY](https://en.wikipedia.org/wiki/Don't_repeat_yourself), define shared descriptors and reference them using the `href` attribute. These can technically appear anywhere in the document since they are referenced by `id`. In fact, this isn't the only way to document a Siren API with ALPS. You could, for example, define every descriptor at the top level and (optionally) reference them in nested descriptors, like we did with the shared descriptors.
 
 Despite a couple shortcomings, ALPS is an effective tool for documenting Siren APIs. We're able to mimic Siren's format with ALPS's hierarchical structure, making it easy to read and understand, as long as you're familiar with [Siren's schema](https://github.com/kevinswiber/siren/blob/master/siren.schema.json). Admittedly, ALPS is still in its infancy, so tooling is quite sparse, but I hope this post motivates at least one person to [contribute to ALPS](https://github.com/alps-io/) in whatever capacity they can.
