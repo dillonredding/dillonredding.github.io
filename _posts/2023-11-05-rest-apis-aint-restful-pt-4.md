@@ -226,13 +226,13 @@ Providing this link in each entity allows API users to follow it from any point 
 
 In general, the process for documenting a Siren API with ALPS is as follows:
 
-1. Define a `semantic` `descriptor` for each entity's class value.
+1. Define a `semantic` `descriptor` for each entity's class values.
 2. Within each entity class `descriptor`, define a `descriptor` for every link relation, property name, and action name that may be present in the entity.
    1. Each property name `descriptor` is `semantic`.
    2. Each link relation `descriptor` is `safe`.
    3. Each action name is either `safe`, `idempotent`, or `unsafe` (depending on the action's `method`).
 3. Within each action name `descriptor`, define a `semantic` `descriptor` for every name of every field that may be present in the action.
 
-To keep our ALPS documents [DRY](https://en.wikipedia.org/wiki/Don't_repeat_yourself), define shared descriptors and reference them using the `href` attribute. These can technically appear anywhere in the document since they are referenced by `id`. In fact, this isn't the only way to document a Siren API with ALPS. You could, for example, define every descriptor at the top level and (optionally) reference them in nested descriptors, like we did with the shared descriptors.
+To keep our ALPS documents [DRY](https://en.wikipedia.org/wiki/Don't_repeat_yourself), define shared descriptors and reference them using the `href` attribute. These can technically appear anywhere in the document since they are referenced by `id`. In fact, this isn't the only way to write an ALPS document for a Siren API. You could, for example, define every descriptor at the top level and (optionally) reference them in nested descriptors, like we did with the shared descriptors.
 
-Despite a couple shortcomings, ALPS is an effective tool for documenting Siren APIs. We're able to mimic Siren's format with ALPS's hierarchical structure, making it easy to read and understand, as long as you're familiar with [Siren's schema](https://github.com/kevinswiber/siren/blob/master/siren.schema.json). Admittedly, ALPS is still in its infancy, so tooling is quite sparse, but I hope this post motivates at least one person to [contribute to ALPS](https://github.com/alps-io/) in whatever capacity they can.
+Despite a couple aforementioned shortcomings, ALPS is an effective tool for documenting Siren APIs. We're able to mimic Siren's format with ALPS's hierarchical structure, making it easy to read and understand, as long as you're familiar with [Siren's schema](https://github.com/kevinswiber/siren/blob/master/siren.schema.json). Admittedly, ALPS is still in its infancy, so tooling is quite sparse, but I hope this post motivates at least one person to [contribute to ALPS](https://github.com/alps-io/) in whatever capacity they can.
