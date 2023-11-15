@@ -169,3 +169,5 @@ As long as these descriptors and their semantics don't change, the server and it
 Siren allows for much more expressive APIs, communicating not only resource state but also available operations and relationships to other resources. That does not mean Siren clients are resilient to _all_ types of change. For instance, adding a required field to an action will likely break clients that try to submit that action. In all fairness though, requiring new input is a breaking change to _any_ API.
 
 Utilizing hypertext achieves a level of evolvability that isn't possible in conventional "REST" APIs. The hypertext format itself effectively becomes the API, requiring both clients _and_ server to conform to the constraints of the media type, which decouples clients from any one particular server.
+
+Check out [part 4]({% post_url 2023-11-05-rest-apis-aint-restful-pt-4 %}) for an alternative to documenting Siren APIs.
