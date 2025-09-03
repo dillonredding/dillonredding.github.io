@@ -11,9 +11,8 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Ctrl+Alt+Dillete
-description: >-
-  Some electrons were likely harmed in the making of this blog
+title: Dillon Redding
+description: Ramblings of a professional programmer
 baseurl: '' # the subpath of your site, e.g. /blog
 url: '' # the base hostname & protocol for your site, e.g. http://example.com
 author:
