@@ -31,7 +31,8 @@ defaults:
 show_excerpts: true
 plugins:
   - jekyll-feed
-theme: jekyll-theme-minima
+  - jekyll-remote-theme
+remote_theme: jekyll/minima
 minima:
   skin: auto
   header_pages:
