@@ -31,17 +31,16 @@ defaults:
 show_excerpts: true
 plugins:
   - jekyll-feed
-  - jekyll-remote-theme
-remote_theme: jekyll/minima
+theme: jekyll-theme-minima
 minima:
   skin: auto
   header_pages:
     - about.md
     - projects.md
   social_links:
-    - platform: github
-      user_url: https://github.com/dillonredding
-    - platform: twitter
-      user_url: https://twitter.com/dillon_redding
+    - icon: github
+      user_url: "https://github.com/dillonredding"
+    - icon: linkedin
+      user_url: "https://www.linkedin.com/in/dillon-redding-20a3944a"
 feed:
   excerpt_only: true
