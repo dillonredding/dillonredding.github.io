@@ -34,15 +34,15 @@ plugins:
 - jekyll-feed
 - jekyll-remote-theme
 remote_theme: pages-themes/midnight@v0.2.0
-minima:
-  skin: auto
-  header_pages:
-  - about.md
-  - projects.md
-  social_links:
-  - icon: github
-    user_url: "https://github.com/dillonredding"
-  - icon: linkedin
-    user_url: "https://www.linkedin.com/in/dillon-redding-20a3944a"
+# minima:
+#   skin: auto
+#   header_pages:
+#   - about.md
+#   - projects.md
+#   social_links:
+#   - icon: github
+#     user_url: "https://github.com/dillonredding"
+#   - icon: linkedin
+#     user_url: "https://www.linkedin.com/in/dillon-redding-20a3944a"
 feed:
   excerpt_only: true
