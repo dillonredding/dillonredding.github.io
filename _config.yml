@@ -21,27 +21,28 @@ google_analytics: G-9QBXKNSTJV
 
 # Front matter defaults
 defaults:
-  - scope:
-      path: '' # all files in the project
-      type: posts
-    values:
-      layout: post
+- scope:
+    path: '' # all files in the project
+    type: posts
+  values:
+    layout: post
 
 # Build settings
 show_excerpts: true
+show_downloads: false
 plugins:
-  - jekyll-feed
-  - jekyll-remote-theme
-remote_theme: jekyll/minima
+- jekyll-feed
+- jekyll-remote-theme
+remote_theme: pages-themes/midnight@v0.2.0
 minima:
   skin: auto
   header_pages:
-    - about.md
-    - projects.md
+  - about.md
+  - projects.md
   social_links:
-    - icon: github
-      user_url: "https://github.com/dillonredding"
-    - icon: linkedin
-      user_url: "https://www.linkedin.com/in/dillon-redding-20a3944a"
+  - icon: github
+    user_url: "https://github.com/dillonredding"
+  - icon: linkedin
+    user_url: "https://www.linkedin.com/in/dillon-redding-20a3944a"
 feed:
   excerpt_only: true
