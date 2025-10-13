@@ -12,7 +12,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Dillon Redding
-description: Ramblings of a professional programmer
+description: Ramblings of a professional software engineer
 baseurl: '' # the subpath of your site, e.g. /blog
 url: '' # the base hostname & protocol for your site, e.g. http://example.com
 author:
@@ -33,16 +33,16 @@ show_downloads: false
 plugins:
 - jekyll-feed
 - jekyll-remote-theme
-remote_theme: pages-themes/midnight@v0.2.0
-# minima:
-#   skin: auto
-#   header_pages:
-#   - about.md
-#   - projects.md
-#   social_links:
-#   - icon: github
-#     user_url: "https://github.com/dillonredding"
-#   - icon: linkedin
-#     user_url: "https://www.linkedin.com/in/dillon-redding-20a3944a"
+remote_theme: jekyll/minima
+minima:
+  skin: auto
+  header_pages:
+  - about.md
+  - projects.md
+  social_links:
+  - icon: github
+    user_url: "https://github.com/dillonredding"
+  - icon: linkedin
+    user_url: "https://www.linkedin.com/in/dillon-redding-20a3944a"
 feed:
   excerpt_only: true
