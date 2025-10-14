@@ -78,7 +78,7 @@ fun `recover is equivalent to the Elvis operator`(nullableValue: String?) {
 }
 ```
 
-There’s a similar function called `getOrElse`, the main difference being that it unwraps the `Option` for us. We don’t need to make this distinction with the Elvis operator.
+There’s a similar function called `getOrElse`, the main difference being that it unwraps the `Option` for us. We don’t need to make this distinction with the Elvis operator. Again, I leave this as an exercise.
 
 Now let’s take a look at `Option.fold`. This method combines the functionality of `map` and `getOrElse` by accepting two functions: an `(A) -> B` in the case of `Some<A>` and a `() -> B` in the case of `None`. We can accomplish the same behavior in vanilla Kotlin with smart-casting and an `if`-`else` expression.
 
@@ -115,7 +115,7 @@ fun `onNone is equivalent to run-on-null`(nullableValue: String?) {
 }
 ```
 
-There’s corollary method called `onSome` that runs a function that accepts the value in the `Option`. We’ve already seen how to do this with smart-casting.
+There’s corollary method called `onSome` that runs a function that accepts the value in the `Option`. We’ve already seen how to do this with smart-casting, but `?.also` provides a more functional approach.
 
 ## Summary
 
@@ -124,8 +124,10 @@ Here’s a quick review the various ways of using plain Kotlin over `Option`:
 1. Use `?.let` instead of `map` and `flatMap`.
 2. Use `?.takeIf` and `?.takeUnless` instead of `filter` and `filterNot`, respectively.
 3. Use `?:` instead of `recover` and `getOrElse`.
-4. Use smart casting instead of `fold` and `onSome`.
-5. Use `?: run { ... }` instead of `onNone`.
+4. Use smart casting instead of `fold`.
+5. Use `?.also` (or smart casting) instead of `onSome`.
+6. Use `?: run` instead of `onNone`.
+7. Bonus: Use standard `null` checks instead of `isSome` and `isNone`.
 
 By preferring common Kotlin language constructs and the `kotlin-stdlib` for handling nullable types, we improve readability of our codebase. Engineers are more likely to understand the core language and standard library than _any_ third-party library. Furthermore, we reduce the learning curve for new devs that may not be familiar with Arrow, let alone highly abstract functional programming concepts. Not that there’s anything wrong with those, they can just feel alien, especially in a language that already supports them but in different terms.
 
