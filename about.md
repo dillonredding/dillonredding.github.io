@@ -4,9 +4,11 @@ title: About
 permalink: /about
 ---
 
-My name is Dillon Redding and welcome to my blog 👋 I'm a professional programmer, web developer, and software engineer 👨‍💻 I believe knowledge isn't meant to be hoarded, but rather shared freely for the benefit of all, which is why I started this blog. My goal is to impart my knowledge and insight to readers, while learning how to organize and express my thoughts through writing. I hope readers find the content here thought provoking and feel inspired to explore and learn.
+Welcome to my blog 👋 My name is Dillon Redding and I'm a professional software engineer with over a decade of experience. The articles I post here cover topics related to what I've been working on, ranging from programming practices to hypermedia.
 
-At the moment, the articles I post here primarily cover web APIs, HTTP, and hypermedia. I find great interest in these topics as they define the peripheral interaction layer of web-based software and therefore have a profound impact on developer experience (DX) as well as on how dependent systems are able to grow, evolve, and adapt to changing requirements.
+Programming fuels my curiosity as a lifelong learner, giving me the opportunity to learn about various domains and apply software development principles and practices to write clean, testable, and maintainable code that serves both users and fellow engineers. Technology is meant to serve humans and make our lives easier. Software is no exception.
+
+I believe knowledge is meant to be shared freely for the benefit of all, which is why I started this blog. Humanity and science won't progress if we hoard knowledge in order to turn a profit. My goal here is both a creative outlet for organizing my thoughts as well as a means for imparting my knowledge and insight as a programmer. I hope readers find the content here thought provoking and feel inspired to explore and learn.
 
 This site is built with [Jekyll](https://jekyllrb.com) and [Minima](https://github.com/jekyll/minima), and hosted on [GitHub Pages](https://pages.github.com).
 
