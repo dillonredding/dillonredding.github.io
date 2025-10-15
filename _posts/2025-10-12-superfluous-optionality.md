@@ -9,7 +9,7 @@ tags: kotlin
 ```kotlin
 @ParameterizedTest
 @EmptySource
-@ValueSource(strings = {" ", "foo", "bar baz"})
+@ValueSource(strings = [" ", "foo", "bar baz"])
 fun `Some is equivalent to non-null`(value: String) {
     val option = value.toOption()
     assertIs<Some<*>>(option)
@@ -31,7 +31,7 @@ Those tests may not seem like much, but they establish a baseline for further eq
 ```kotlin
 @ParameterizedTest
 @NullAndEmptySource
-@ValueSource(strings = {" ", "foo", "bar baz"})
+@ValueSource(strings = [" ", "foo", "bar baz"])
 fun `map is equivalent to let`(nullableValue: String?) {
     fun emphasize(value: String) = "$value!!!"
 
@@ -44,12 +44,27 @@ fun `map is equivalent to let`(nullableValue: String?) {
 
 Additionally, `?.let` covers `Option.flatMap` since nullable types don’t suffer from the nesting issue that `Option` does. That is, when our `map` function might return an `Option<B>`, we can instead use `flatMap` instead to avoid the whole `Option<Option<B>>` rigamarole. We don’t need to make that distinction with `?.let`. We can simply return another nullable value.
 
+Moreover, a common anti-pattern I see is converting a nullable with `toOption`, calling a method on the value in `map`, and unwrapping with `getOrNull`. For example:
+
+```kotlin
+nullableValue
+    .toOption()
+    .map { it.contains("foo") }
+    .getOrNull()
+```
+
+However, this is the same as simply using the safe-call operator:
+
+```kotlin
+nullableValue?.contains("foo")
+```
+
 Another useful method is `Option.filter`, which can be accomplished with the `takeIf` scope function. Again, we can prove this using a similar approach as a above, this time applying a predicate to a nullable value using both approaches.
 
 ```kotlin
 @ParameterizedTest
 @NullAndEmptySource
-@ValueSource(strings = {" ", "foo", "bar baz"})
+@ValueSource(strings = [" ", "foo", "bar baz"])
 fun `filter is equivalent to takeIf`(nullableValue: String?) {
     val predicate = String::isNotEmpty
 
@@ -67,7 +82,7 @@ Eventually, we’ll have to extract whatever’s inside the `Option` if we want 
 ```kotlin
 @ParameterizedTest
 @NullAndEmptySource
-@ValueSource(strings = {" ", "foo", "bar baz"})
+@ValueSource(strings = [" ", "foo", "bar baz"])
 fun `recover is equivalent to the Elvis operator`(nullableValue: String?) {
     val fallback = "Must be null..."
 
@@ -85,7 +100,7 @@ Now let’s take a look at `Option.fold`. This method combines the functionality
 ```kotlin
 @ParameterizedTest
 @NullAndEmptySource
-@ValueSource(strings = {" ", "foo", "bar baz"})
+@ValueSource(strings = [" ", "foo", "bar baz"])
 fun `fold is equivalent to smart-casting`(nullableValue: String?) {
 	  val resultFromOptional = nullableValue.toOption().fold(
 		    { "null" },
@@ -102,7 +117,7 @@ Finally, let’s consider `Option.onNone`, which runs a given function when ther
 ```kotlin
 @ParameterizedTest
 @NullAndEmptySource
-@ValueSource(strings = {" ", "foo", "bar baz"})
+@ValueSource(strings = [" ", "foo", "bar baz"])
 fun `onNone is equivalent to run-on-null`(nullableValue: String?) {
     data class HasRun(val nullable: Boolean = false, val optional: Boolean = false)
 
