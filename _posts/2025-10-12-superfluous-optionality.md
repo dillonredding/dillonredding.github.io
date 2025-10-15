@@ -12,14 +12,14 @@ tags: kotlin
 @ValueSource(strings = [" ", "foo", "bar baz"])
 fun `Some is equivalent to non-null`(value: String) {
     val option = value.toOption()
-    assertIs<Some<*>>(option)
+    assertTrue(option.isSome())
     assertTrue { option.getOrNull() == value }
 }
 
 @Test
 fun `None is equivalent to null`() {
     val option = null.toOption()
-    assertIs<None>(option)
+    assertTrue(option.isNone())
     assertNull(option.getOrNull())
 }
 ```
