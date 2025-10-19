@@ -4,29 +4,23 @@ excerpt: How to use idiomatic Kotlin over Arrow's Option type
 tags: kotlin
 ---
 
-[Arrow’s `Option<A>` type](https://apidocs.arrow-kt.io/arrow-core/arrow.core/-option/index.html) allows us to represent a potentially absent value, but why would you use `Option` for that? Kotlin has natively supported this from the beginning with nullable types. An `Option<A>` has two subtypes: `Some<A>` for representing a value and `None` for representing the _absence_ of a value. This is exactly what nullable types are for though. A `String?`, for example, can hold a value such as `“foo”` or no value (`null`). This isomorphism of `Option<String>` and `String?` is easily demonstrated with a couple of simple tests:
+[Arrow’s `Option<A>` type](https://apidocs.arrow-kt.io/arrow-core/arrow.core/-option/index.html) allows us to represent a potentially absent value, but why would you use `Option` for that? Kotlin has natively supported this from the beginning with nullable types. An `Option<A>` has two subtypes: `Some<A>` for representing a value and `None` for representing the _absence_ of a value. This is exactly what nullable types are for though. A `String?`, for example, can hold a value such as `“foo”` or no value (`null`). This isomorphism of `Option<String>` and `String?` is easily demonstrated with a simple test:
 
 ```kotlin
 @ParameterizedTest
-@EmptySource
+@NullAndEmptySource
 @ValueSource(strings = [" ", "foo", "bar baz"])
-fun `Some is equivalent to non-null`(value: String) {
-    val option = value.toOption()
-    assertTrue(option.isSome())
-    assertTrue { option.getOrNull() == value }
-}
-
-@Test
-fun `None is equivalent to null`() {
-    val option = null.toOption()
-    assertTrue(option.isNone())
-    assertNull(option.getOrNull())
+fun `Option is structurally equivalent to nullable types`(nullableValue: String?) {
+    val option = nullableValue.toOption()
+    assertTrue { option.isSome() == (nullableValue != null) }
+    assertTrue { option.isNone() == (nullableValue == null) }
+    assertTrue { option.getOrNull() == nullableValue }
 }
 ```
 
-The first test shows how `Some<String>` is equivalent to `String` by simply wrapping a `String` in an `Option<String>` and asserting that it unwraps to the same `String`. And because `Option` is a generic container, this equivalence extends to any `Option<A>` and `A?`. In the second test, we prove the equivalence of `null` and `None` using the same approach.
+This test shows how `Some<String>` is equivalent to `String` and `None` is equivalent to `None` by wrapping a `nullableValue` in an `Option<String>`. When it's _not_ `null` we get `Some`, otherwise we get `None`. Also, unwrapping the `Option` with `getOrNull` gives us the same value back.
 
-Those tests may not seem like much, but they establish a baseline for further equivalence testing. Indeed, the whole point of using `Option` is its methods and extension functions that exhibit polymorphic behavior based on the subtype. Let’s start with the oft used `Option.map`. In Kotlin, we achieve the same functionality with the safe-call operator `?.` and the `let` [scope function](https://kotlinlang.org/docs/scope-functions.html). We can prove this by applying a function to a nullable value using both the `Option` and idiomatic Kotlin approaches, and ensuring the results match.
+That test may not seem like much, but it establishes a baseline for further equivalence testing. Indeed, the whole point of using `Option` is its methods and extension functions that exhibit polymorphic behavior based on the subtype. Let’s start with the oft used `Option.map`. In Kotlin, we achieve the same functionality with the safe-call operator `?.` and the `let` [scope function](https://kotlinlang.org/docs/scope-functions.html). We can prove this by applying a function to a nullable value using both the `Option` and idiomatic Kotlin approaches, and ensuring the results match.
 
 ```kotlin
 @ParameterizedTest
@@ -136,13 +130,13 @@ There’s corollary method called `onSome` that runs a function that accepts the
 
 Here’s a quick review the various ways of using plain Kotlin over `Option`:
 
-1. Use `?.let` instead of `map` and `flatMap`.
-2. Use `?.takeIf` and `?.takeUnless` instead of `filter` and `filterNot`, respectively.
-3. Use `?:` instead of `recover` and `getOrElse`.
-4. Use smart casting instead of `fold`.
-5. Use `?.also` (or smart casting) instead of `onSome`.
+1. Use standard `null` checks instead of `isSome` and `isNone`.
+2. Use `?.let` instead of `map` and `flatMap`.
+3. Use `?.takeIf` and `?.takeUnless` instead of `filter` and `filterNot`, respectively.
+4. Use `?:` instead of `recover` and `getOrElse`.
+5. Use smart casting instead of `fold`.
 6. Use `?: run` instead of `onNone`.
-7. Bonus: Use standard `null` checks instead of `isSome` and `isNone`.
+7. Use `?.also` (or smart casting) instead of `onSome`.
 
 By preferring common Kotlin language constructs and the `kotlin-stdlib` for handling nullable types, we improve readability of our codebase. Engineers are more likely to understand the core language and standard library than _any_ third-party library. Furthermore, we reduce the learning curve for new devs that may not be familiar with Arrow, let alone highly abstract functional programming concepts. Not that there’s anything wrong with those, they can just feel alien, especially in a language that already supports them but in different terms.
 
