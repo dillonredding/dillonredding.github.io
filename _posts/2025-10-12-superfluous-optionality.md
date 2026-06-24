@@ -128,15 +128,17 @@ There’s corollary method called `onSome` that runs a function that accepts the
 
 ## Summary
 
-Here’s a quick review the various ways of using plain Kotlin over `Option`:
+Here’s a nice little reference table for replacing `Option` with plain Kotlin:
 
-1. Use standard `null` checks instead of `isSome` and `isNone`.
-2. Use `?.let` instead of `map` and `flatMap`.
-3. Use `?.takeIf` and `?.takeUnless` instead of `filter` and `filterNot`, respectively.
-4. Use `?:` instead of `recover` and `getOrElse`.
-5. Use smart casting instead of `fold`.
-6. Use `?: run` instead of `onNone`.
-7. Use `?.also` (or smart casting) instead of `onSome`.
+| `Option<A>` method       | Idiomatic Kotlin              |
+|--------------------------|-------------------------------|
+| `isSome` or `isNone`     | Simple `null` check           |
+| `map` or `flatMap`       | `?.let`                       |
+| `filter` and `filterNot` | `?.takeIf` and `?.takeUnless` |
+| `recover` or `getOrElse` | `?:`                          |
+| `fold`                   | Smart casting                 |
+| `onNone`                 | `?: run`                      |
+| `onSome`                 | `?.also`                      |
 
 By preferring common Kotlin language constructs and the `kotlin-stdlib` for handling nullable types, we improve readability of our codebase. Engineers are more likely to understand the core language and standard library than _any_ third-party library. Furthermore, we reduce the learning curve for new devs that may not be familiar with Arrow, let alone highly abstract functional programming concepts. Not that there’s anything wrong with those, they can just feel alien, especially in a language that already supports them but in different terms.
 
