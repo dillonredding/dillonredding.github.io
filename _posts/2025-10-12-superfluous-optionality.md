@@ -4,7 +4,7 @@ excerpt: How to use idiomatic Kotlin over Arrow's Option type
 tags: kotlin
 ---
 
-[Arrow’s `Option<A>` type](https://apidocs.arrow-kt.io/arrow-core/arrow.core/-option/index.html) allows us to represent a potentially absent value, but why would you use `Option` for that? Kotlin has natively supported this from the beginning with nullable types. An `Option<A>` has two subtypes: `Some<A>` for representing a value and `None` for representing the _absence_ of a value. This is exactly what nullable types are for though. A `String?`, for example, can hold a value such as `“foo”` or no value (`null`). This isomorphism of `Option<String>` and `String?` is easily demonstrated with a simple test:
+[Arrow’s `Option<A>` type](https://apidocs.arrow-kt.io/arrow-core/arrow.core/-option/index.html) allows us to represent a potentially absent value, but why would you _need_ a custom monad for that? An `Option<A>` has two subtypes: `Some<A>` for representing a value and `None` for representing the absence of a value. Does this sound familiar? This is exactly what nullable types are for, which Kotlin has supported from the beginning. A `String?`, for example, can hold a value such as `“foo”` or no value (`null`). This isomorphism between `Option<String>` and `String?` is easily demonstrated with a simple test:
 
 ```kotlin
 @ParameterizedTest
@@ -18,7 +18,7 @@ fun `Option is structurally equivalent to nullable types`(nullableValue: String?
 }
 ```
 
-This test shows how `Some<String>` is equivalent to `String` and `None` is equivalent to `None` by wrapping a `nullableValue` in an `Option<String>`. When it's _not_ `null` we get `Some`, otherwise we get `None`. Also, unwrapping the `Option` with `getOrNull` gives us the same value back.
+This test shows how `Some<String>` is equivalent to `String` and `None` is equivalent to `null` by wrapping one of `" "`, `"foo"`, and `"bar baz"` in an `Option<String>`. When it's _not_ `null` we get `Some`, otherwise we get `None`. Also, unwrapping the `Option` with `getOrNull` gives us the same value back.
 
 That test may not seem like much, but it establishes a baseline for further equivalence testing. Indeed, the whole point of using `Option` is its methods and extension functions that exhibit polymorphic behavior based on the subtype. Let’s start with the oft used `Option.map`. In Kotlin, we achieve the same functionality with the safe-call operator `?.` and the `let` [scope function](https://kotlinlang.org/docs/scope-functions.html). We can prove this by applying a function to a nullable value using both the `Option` and idiomatic Kotlin approaches, and ensuring the results match.
 
