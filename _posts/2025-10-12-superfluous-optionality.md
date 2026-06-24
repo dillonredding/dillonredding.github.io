@@ -18,7 +18,7 @@ fun `Option is structurally equivalent to nullable types`(nullableValue: String?
 }
 ```
 
-This test shows how `Some<String>` is equivalent to `String` and `None` is equivalent to `null` by wrapping one of `" "`, `"foo"`, and `"bar baz"` in an `Option<String>`. When it's _not_ `null` we get `Some`, otherwise we get `None`. Also, unwrapping the `Option` with `getOrNull` gives us the same value back.
+This test shows how `Some<String>` is equivalent to `String` and `None` is equivalent to `null` by wrapping one of `null`, `""`, `" "`, `"foo"`, and `"bar baz"` in an `Option<String>`. When it's _not_ `null` we get `Some`, otherwise we get `None`. Also, unwrapping the `Option` with `getOrNull` gives us the same value back.
 
 That test may not seem like much, but it establishes a baseline for further equivalence testing. Indeed, the whole point of using `Option` is its methods and extension functions that exhibit polymorphic behavior based on the subtype. Let’s start with the oft used `Option.map`. In Kotlin, we achieve the same functionality with the safe-call operator `?.` and the `let` [scope function](https://kotlinlang.org/docs/scope-functions.html). We can prove this by applying a function to a nullable value using both the `Option` and idiomatic Kotlin approaches, and ensuring the results match.
 
